@@ -1,13 +1,13 @@
-var expect = require('expect.js');
-var Immutable = require('immutable');
-var t = require('../transducers');
-var { reduce, transformer, toArray, toObj, toIter, iterate, push, merge, empty,
+const expect = require('expect.js');
+const Immutable = require('immutable');
+const t = require('../transducers');
+const { reduce, transformer, toArray, toObj, toIter, iterate, push, merge, empty,
       transduce, seq, into, compose, map, filter, remove,
       cat, mapcat, keep, dedupe, take, takeWhile,
       drop, dropWhile, partition, partitionBy,
       interpose, repeat, takeNth } = t;
 
-var context = { num: 5 };
+const context = { num: 5 };
 
 // utility
 
@@ -57,7 +57,7 @@ describe('', () => {
   });
 
   it('transformer protocol should work', () => {
-    var vec = Immutable.List.of(1, 2, 3);
+    const vec = Immutable.List.of(1, 2, 3);
 
     immutEql(vec['@@transducer/init'](), Immutable.List());
 
@@ -225,7 +225,7 @@ describe('', () => {
   });
 
   it("partitionBy should work", () => {
-    var type = (x) => typeof x;
+    const type = (x) => typeof x;
 
     eql(partitionBy(["a", "b", 1, 2, "c", true, false, undefined], type),
         [["a", "b"], [1, 2], ["c"], [true, false], [undefined]]);
@@ -309,10 +309,10 @@ describe('', () => {
         [2, 3, 4, 5]);
 
     eql(into([],
-             mapcat(function(arr) {
-               return map(arr, x => x + this.num);
-             }, context),
-             [[1, 2], [3, 4]]),
+        mapcat(arr => {
+            return map(arr, x => x + context.num);
+        }),
+        [[1, 2], [3, 4]]),
         [6, 7, 8, 9]);
   });
 
@@ -388,8 +388,8 @@ describe('', () => {
         [4, 3, 6, 4, 8]);
   });
 
-  it('array should work', function() {
-    var nums = {
+  it('array should work',() => {
+    const nums = {
       i: 0,
       next: function() {
         return {
@@ -398,7 +398,6 @@ describe('', () => {
         };
       },
     };
-
     eql(toArray([1, 2, 3]), [1, 2, 3]);
     eql(toArray([1, 2, 3, 4], take(3)),
         [1, 2, 3]);
@@ -406,15 +405,15 @@ describe('', () => {
         [0, 1, 2, 3, 4, 5]);
   });
 
-  it('obj should work', function() {
+  it('obj should work', () => {
     eql(toObj([['foo', 1], ['bar', 2]]),
         { foo: 1, bar: 2 });
     eql(toObj({ foo: 1, bar: 2 }, map(kv => [kv[0], kv[1] + 1])),
         { foo: 2, bar: 3 });
   });
 
-  it('iter should work', function() {
-    var nums = {
+  it('iter should work', () => {
+    const nums = {
       i: 0,
       next: function() {
         return {
@@ -424,7 +423,7 @@ describe('', () => {
       },
     };
 
-    var lt = toIter(nums, map(x => x * 2));
+    const lt = toIter(nums, map(x => x * 2));
     expect(lt instanceof t.LazyTransformer).to.be.ok();
     expect(toArray(lt, take(5)),
            [0, 2, 4, 6, 8]);

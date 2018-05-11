@@ -1,5 +1,6 @@
 
 # transducers.js
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 A small library for generalized transformation of data. This provides a bunch of transformation functions that can be applied to any data structure. It is a direct port of Clojure's [transducers](http://blog.cognitect.com/blog/2014/8/6/transducers-are-coming) in JavaScript. Read more in [this post](http://jlongster.com/Transducers.js--A-JavaScript-Library-for-Transformation-of-Data).
 

@@ -1,11 +1,21 @@
 {
   "name": "transducers.js",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "author": "James Long <longster@gmail.com>",
   "main": "./transducers.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/jlongster/transducers.js.git"
+  },
+  "scripts": {
+    "test": "mocha build/tests",
+    "lint": "eslint transducers.js --fix",
+    "cm": "git-cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "keywords": [
     "browser",
@@ -14,19 +24,26 @@
     "util"
   ],
   "devDependencies": {
-    "benchmark": "^1.0.0",
+    "benchmark": "^2.1.4",
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.1.0",
     "es6-macros": "0.0.7",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
     "expect.js": "^0.3.1",
-    "gulp": "^3.8.8",
-    "gulp-header": "^1.1.1",
-    "gulp-sourcemaps": "^1.1.5",
-    "gulp-sweetjs": "^0.5.4",
-    "lodash": "lodash/lodash",
-    "mocha": "^1.21.4",
-    "source-map-support": "^0.2.7",
-    "sweet.js": "^0.7.1",
-    "underscore": "^1.7.0",
-    "webpack": "^1.4.0-beta9",
-    "immutable": "^3.7.1"
+    "gulp": "^3.9.1",
+    "gulp-header": "^2.0.5",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-sweetjs": "^0.6.1",
+    "immutable": "^3.8.2",
+    "mocha": "^5.1.1",
+    "source-map-support": "^0.5.5",
+    "sweet.js": "^3.0.15",
+    "underscore": "^1.9.0",
+    "webpack": "^4.8.1"
   }
 }

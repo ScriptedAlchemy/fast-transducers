@@ -37,7 +37,7 @@ function iterator(coll) {
     // conform to the iterator protocol (all iterators should have the
     // @@iterator method and return themselves, but some engines don't
     // have that on generators like older v8) and wrap it.
-    
+
     return coll[protocols.iterator] ? coll : new WrappedIterator(coll);
   }
   else if(isArray(coll)) {
@@ -744,15 +744,15 @@ Zip.prototype['@@transducer/init'] = function(result) {
 
 Zip.prototype['@@transducer/result'] = function(result) {
   if(result[sub] == null || result[sub].length === 0) {
-    return result.wrapped || result;  
+    return result.wrapped || result;
   }
   var saved = result[sub];
   var i = -1;
   var xform = this.xform;
   var subxform = {};
-  subxform['@@transducer/init'] = function(result) { 
-    return result; 
-  }
+  subxform['@@transducer/init'] = function(result) {
+    return result;
+  };
   subxform['@@transducer/result'] = function(v) {
     return v;
   };
@@ -761,7 +761,7 @@ Zip.prototype['@@transducer/result'] = function(result) {
     return xform['@@transducer/step'](
       acc, saved.map(function (a) { return a[i]; }));
   };
-  let wrappedResult = reduce(result[sub][0], subxform, result.wrapped);
+  var wrappedResult = reduce(result[sub][0], subxform, result.wrapped);
   return xform['@@transducer/result'](wrappedResult);
 };
 
@@ -773,7 +773,7 @@ Zip.prototype['@@transducer/step'] = function(result, input) {
 };
 
 /**
- * Returns a new collection whose ith member consists of, 
+ * Returns a new collection whose ith member consists of,
  * for every element of the given collection, a collection of
  * the ith sub-elements of those elements.
  * Returns a transducer if a collection is not provided.
@@ -795,8 +795,8 @@ function zip(coll) {
 function Cat(xform) {
   this.xform = xform;
   this.subxform = {};
-  this.subxform['@@transducer/init'] = function(result) { 
-    return result; 
+  this.subxform['@@transducer/init'] = function(result) {
+    return result;
   }
   this.subxform['@@transducer/result'] = function(v) {
     return v;
@@ -891,7 +891,7 @@ objReducer['@@transducer/init'] = function(result) {
     var val = itr.next();
     var objResult = {};
     while(!val.done) {
-      const value = val.value;
+      var value = val.value;
       if(Array.isArray(value)) {
         objResult[value[0]] = value[1];
       }

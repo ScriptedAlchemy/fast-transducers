@@ -1,24 +1,23 @@
 transducers.js
 ==============
 
-[![Build Status](https://travis-ci.org/jlongster/transducers.js.svg?branch=master)](https://travis-ci.org/jlongster/transducers.js)
-[![NPM version](https://badge.fury.io/js/transducers.js.svg)](http://badge.fury.io/js/transducers.js)
-[![Dependency Status](https://img.shields.io/david/jlongster/transducers.js.svg)](https://david-dm.org/jlongster/transducers.js)
-[![npm](https://img.shields.io/npm/dm/transducers.js.svg?maxAge=2592000)]()
+[![Build Status](https://travis-ci.org/zackljackson/fast-transducers.svg?branch=master)](https://travis-ci.org/zackljackson/fast-transducers)
+[![NPM version](https://badge.fury.io/js/fast-transducers.svg)](http://badge.fury.io/js/fast-transducers)
+[![npm](https://img.shields.io/npm/dm/fast-transducers.svg?maxAge=2592000)]()
 
-A small library for generalized transformation of data. This provides a bunch of transformation functions that can be applied to any data structure. It is a direct port of Clojure's [transducers](http://blog.cognitect.com/blog/2014/8/6/transducers-are-coming) in JavaScript. Read more in [this post](http://jlongster.com/Transducers.js--A-JavaScript-Library-for-Transformation-of-Data).
+A small library for generalized transformation of data. This provides a bunch of transformation functions that can be applied to any data structure. It is a direct port of Clojure's [transducers](http://blog.cognitect.com/blog/2014/8/6/transducers-are-coming) in JavaScript. Read more in [this post](http://zackljackson.com/Transducers.js--A-JavaScript-Library-for-Transformation-of-Data).
 
-The algorithm behind this, explained in the above post, not only allows for it to work with any data structure (arrays, objects, iterators, immutable data structures, you name it) but it also provides better performance than other alternatives such as underscore or lodash. This is because there are no intermediate collections. See [this post](http://jlongster.com/Transducers.js-Round-2-with-Benchmarks) for benchmarks.
+The algorithm behind this, explained in the above post, not only allows for it to work with any data structure (arrays, objects, iterators, immutable data structures, you name it) but it also provides better performance than other alternatives such as underscore or lodash. This is because there are no intermediate collections. See [this post](http://zackljackson.com/Transducers.js-Round-2-with-Benchmarks) for benchmarks.
 
 ```bash
-npm install transducers.js --save
+npm install fast-transducers --save
 ```
 
 For browsers, grab the file `dist/transducers.js`.
 
 When writing programs, we frequently write methods that take in collections, do something with them, and return a result. The problem is that we frequently only write these functions to work a specific data structure, so if we ever change our data type or wanted to reuse that functionality, you can't. We need to decouple these kinds of concerns.
 
-A transducer is a function that takes a reducing function and returns a new one. It can perform the necessary work and call the original reducing function to move on to the next "step". In this library, a transducer a little more than that (it's actually an object that also supports init and finalizer methods) but generally you don't have to worry about these internal details. Read [my post](http://jlongster.com/Transducers.js--A-JavaScript-Library-for-Transformation-of-Data) if you want to learn more about the algorithm.
+A transducer is a function that takes a reducing function and returns a new one. It can perform the necessary work and call the original reducing function to move on to the next "step". In this library, a transducer a little more than that (it's actually an object that also supports init and finalizer methods) but generally you don't have to worry about these internal details. Read [my post](http://zackljackson.com/Transducers.js--A-JavaScript-Library-for-Transformation-of-Data) if you want to learn more about the algorithm.
 
 ```js
 const transform = compose(
@@ -79,7 +78,7 @@ const transform = compose(
 );
 ```
 
-`compose` is a provided function that simply turns `compose(f, g)` into `x => f(g(x))`. You use it to build up transformations. The above transformation would always run the map and filter **only twice** becaue only two items are needed, and it short-circuits once it gets two items. Again, this is done without laziness, read more [here](http://jlongster.com/Transducers.js--A-JavaScript-Library-for-Transformation-of-Data).
+`compose` is a provided function that simply turns `compose(f, g)` into `x => f(g(x))`. You use it to build up transformations. The above transformation would always run the map and filter **only twice** becaue only two items are needed, and it short-circuits once it gets two items. Again, this is done without laziness, read more [here](http://zackljackson.com/Transducers.js--A-JavaScript-Library-for-Transformation-of-Data).
 
 There are also 2 transducers available for taking collections and "catting" them into the transformation stream:
 
@@ -233,4 +232,4 @@ gulp
 mocha build/tests
 ```
 
-[BSD LICENSE](https://github.com/jlongster/transducers.js/blob/master/LICENSE)
+[BSD LICENSE](https://github.com/zackljackson/transducers.js/blob/master/LICENSE)

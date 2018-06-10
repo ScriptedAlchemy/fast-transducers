@@ -2,4 +2,4 @@ build
 node_modules
 foo.js
 .idea
-dist
+dist/transducers.js

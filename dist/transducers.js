@@ -55,8 +55,9 @@ var transducers =
 	};
 
 	function throwProtocolError(name, coll) {
-	  throw new Error("don't know how to " + name + " collection: " +
-	                  coll);
+	  throw new Error(
+	    "don't know how to " + name + " collection: " + coll
+	  );
 	}
 
 	function fulfillsProtocol(obj, name) {
@@ -83,7 +84,7 @@ var transducers =
 	    // conform to the iterator protocol (all iterators should have the
 	    // @@iterator method and return themselves, but some engines don't
 	    // have that on generators like older v8) and wrap it.
-	    
+
 	    return coll[protocols.iterator] ? coll : new WrappedIterator(coll);
 	  }
 	  else if(isArray(coll)) {
@@ -107,7 +108,6 @@ var transducers =
 	  this.arr = arr;
 	  this.index = 0;
 	}
-
 
 	ArrayIterator.prototype.next = function() {
 	  if(this.index < this.arr.length) {
@@ -330,6 +330,7 @@ var transducers =
 	};
 
 	function map(coll, f, ctx) {
+	  console.log("using fast-transducer map")
 	  if(isFunction(coll)) { ctx = f; f = coll; coll = null; }
 	  f = bound(f, ctx);
 
@@ -343,6 +344,10 @@ var transducers =
 	  return function(xform) {
 	    return new Map(f, xform);
 	  }
+	}
+
+	Array.prototype.map = function (args) {
+	  map(this,args)
 	}
 
 	function Filter(f, xform) {
@@ -791,14 +796,14 @@ var transducers =
 
 	Zip.prototype['@@transducer/result'] = function(result) {
 	  if(result[sub] == null || result[sub].length === 0) {
-	    return result.wrapped || result;  
+	    return result.wrapped || result;
 	  }
 	  var saved = result[sub];
 	  var i = -1;
 	  var xform = this.xform;
 	  var subxform = {};
-	  subxform['@@transducer/init'] = function(result) { 
-	    return result; 
+	  subxform['@@transducer/init'] = function(result) {
+	    return result;
 	  }
 	  subxform['@@transducer/result'] = function(v) {
 	    return v;
@@ -820,7 +825,7 @@ var transducers =
 	};
 
 	/**
-	 * Returns a new collection whose ith member consists of, 
+	 * Returns a new collection whose ith member consists of,
 	 * for every element of the given collection, a collection of
 	 * the ith sub-elements of those elements.
 	 * Returns a transducer if a collection is not provided.
@@ -842,8 +847,8 @@ var transducers =
 	function Cat(xform) {
 	  this.xform = xform;
 	  this.subxform = {};
-	  this.subxform['@@transducer/init'] = function(result) { 
-	    return result; 
+	  this.subxform['@@transducer/init'] = function(result) {
+	    return result;
 	  }
 	  this.subxform['@@transducer/result'] = function(v) {
 	    return v;

@@ -1,20 +1,17 @@
 {
   "name": "transducers.js",
-  "version": "0.3.2",
-  "author": "James Long <longster@gmail.com>",
+  "version": "1.0.0",
+  "author": "Zack Jackson <zack@ScriptedAlchemy.com>",
   "main": "./transducers.js",
   "scripts": {
     "test": "mocha ./tests/tests.js",
     "build": "webpack",
     "build:uglify": "NODE_ENV=production webpack",
-    "prepublish": "npm -s run build && npm test"
+    "prepublishOnly": "npm -s run build && npm test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jlongster/transducers.js.git"
-  },
-  "scripts": {
-    "test": "gulp && mocha ./build/*.spec.js"
+    "url": "https://github.com/ScriptedAlchemy/fast-transducers.git"
   },
   "keywords": [
     "browser",
@@ -23,19 +20,20 @@
     "util"
   ],
   "devDependencies": {
-    "benchmark": "^2.1.1",
+    "benchmark": "^2.1.4",
     "es6-macros": "0.0.7",
     "expect.js": "^0.3.1",
     "gulp": "^3.9.1",
     "gulp-header": "^1.8.8",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-sweetjs": "^0.6.1",
-    "lodash": "lodash/lodash",
+    "immutable": "^3.8.1",
+    "lodash": "^4.17.11",
     "mocha": "^3.0.2",
-    "source-map-support": "^0.4.2",
+    "semantic-release": "^15.13.2",
+    "source-map-support": "^0.5.9",
     "sweet.js": "^2.2.1",
-    "underscore": "^1.8.3",
-    "webpack": "^1.13.2",
-    "immutable": "^3.8.1"
+    "underscore": "^1.9.1",
+    "webpack": "^1.13.2"
   }
 }

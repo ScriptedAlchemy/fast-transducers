@@ -152,9 +152,9 @@ function ensureUnreduced(v) {
     return v;
   }
 }
-
 function reduce(coll, xform, init) {
   if(isArray(coll)) {
+    console.log({coll,xform,init})
     var result = xform['@@transducer/init'](init);
     var index = -1;
     var len = coll.length;
@@ -184,9 +184,14 @@ function reduce(coll, xform, init) {
   throwProtocolError('iterate', coll);
 }
 
-Array.prototype.reduce = function (args) {
-  map(this,args)
-}
+// Array.prototype.reduce = function (args) {
+//   console.log("args",args);
+  // t.into([],
+  //   t.compose(
+  //     reduce(this)
+  //   ),
+  //   this);
+// }
 
 function transduce(coll, xform, reducer, init) {
   xform = xform(reducer);

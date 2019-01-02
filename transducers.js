@@ -37,7 +37,7 @@ function iterator(coll) {
     // conform to the iterator protocol (all iterators should have the
     // @@iterator method and return themselves, but some engines don't
     // have that on generators like older v8) and wrap it.
-    
+
     return coll[protocols.iterator] ? coll : new WrappedIterator(coll);
   }
   else if(isArray(coll)) {
@@ -184,6 +184,10 @@ function reduce(coll, xform, init) {
   throwProtocolError('iterate', coll);
 }
 
+Array.prototype.reduce = function (args) {
+  map(this,args)
+}
+
 function transduce(coll, xform, reducer, init) {
   xform = xform(reducer);
   init = xform['@@transducer/init'](init);
@@ -296,6 +300,10 @@ function map(coll, f, ctx) {
   return function(xform) {
     return new Map(f, xform);
   }
+}
+
+Array.prototype.map = function (args) {
+  map(this,args)
 }
 
 function Filter(f, xform) {
@@ -744,14 +752,14 @@ Zip.prototype['@@transducer/init'] = function(result) {
 
 Zip.prototype['@@transducer/result'] = function(result) {
   if(result[sub] == null || result[sub].length === 0) {
-    return result.wrapped || result;  
+    return result.wrapped || result;
   }
   var saved = result[sub];
   var i = -1;
   var xform = this.xform;
   var subxform = {};
-  subxform['@@transducer/init'] = function(result) { 
-    return result; 
+  subxform['@@transducer/init'] = function(result) {
+    return result;
   }
   subxform['@@transducer/result'] = function(v) {
     return v;
@@ -773,7 +781,7 @@ Zip.prototype['@@transducer/step'] = function(result, input) {
 };
 
 /**
- * Returns a new collection whose ith member consists of, 
+ * Returns a new collection whose ith member consists of,
  * for every element of the given collection, a collection of
  * the ith sub-elements of those elements.
  * Returns a transducer if a collection is not provided.
@@ -795,8 +803,8 @@ function zip(coll) {
 function Cat(xform) {
   this.xform = xform;
   this.subxform = {};
-  this.subxform['@@transducer/init'] = function(result) { 
-    return result; 
+  this.subxform['@@transducer/init'] = function(result) {
+    return result;
   }
   this.subxform['@@transducer/result'] = function(v) {
     return v;

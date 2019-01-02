@@ -1,20 +1,18 @@
 {
   "name": "transducers.js",
-  "version": "0.3.2",
-  "author": "James Long <longster@gmail.com>",
+  "version": "1.0.0",
+  "author": "Zack Jackson <zack@ScriptedAlchemy.com>",
   "main": "./transducers.js",
   "scripts": {
     "test": "mocha ./tests/tests.js",
     "build": "webpack",
+    "playground": "node ./tester.js",
     "build:uglify": "NODE_ENV=production webpack",
-    "prepublish": "npm -s run build && npm test"
+    "prepublishOnly": "npm -s run build && npm test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jlongster/transducers.js.git"
-  },
-  "scripts": {
-    "test": "gulp && mocha ./build/*.spec.js"
+    "url": "https://github.com/ScriptedAlchemy/fast-transducers.git"
   },
   "keywords": [
     "browser",

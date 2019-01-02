@@ -1,17 +1,14 @@
 transducers.js
 ==============
 
-[![Build Status](https://travis-ci.org/jlongster/transducers.js.svg?branch=master)](https://travis-ci.org/jlongster/transducers.js)
-[![NPM version](https://badge.fury.io/js/transducers.js.svg)](http://badge.fury.io/js/transducers.js)
-[![Dependency Status](https://img.shields.io/david/jlongster/transducers.js.svg)](https://david-dm.org/jlongster/transducers.js)
-[![npm](https://img.shields.io/npm/dm/transducers.js.svg?maxAge=2592000)]()
+# transducers.js
 
 A small library for generalized transformation of data. This provides a bunch of transformation functions that can be applied to any data structure. It is a direct port of Clojure's [transducers](http://blog.cognitect.com/blog/2014/8/6/transducers-are-coming) in JavaScript. Read more in [this post](http://jlongster.com/Transducers.js--A-JavaScript-Library-for-Transformation-of-Data).
 
 The algorithm behind this, explained in the above post, not only allows for it to work with any data structure (arrays, objects, iterators, immutable data structures, you name it) but it also provides better performance than other alternatives such as underscore or lodash. This is because there are no intermediate collections. See [this post](http://jlongster.com/Transducers.js-Round-2-with-Benchmarks) for benchmarks.
 
-```bash
-npm install transducers.js --save
+```
+npm install transducers.js
 ```
 
 For browsers, grab the file `dist/transducers.js`.
@@ -21,7 +18,7 @@ When writing programs, we frequently write methods that take in collections, do 
 A transducer is a function that takes a reducing function and returns a new one. It can perform the necessary work and call the original reducing function to move on to the next "step". In this library, a transducer a little more than that (it's actually an object that also supports init and finalizer methods) but generally you don't have to worry about these internal details. Read [my post](http://jlongster.com/Transducers.js--A-JavaScript-Library-for-Transformation-of-Data) if you want to learn more about the algorithm.
 
 ```js
-const transform = compose(
+var transform = compose(
   map(x => x * 3),
   filter(x => x % 2 === 0),
   take(2)
@@ -31,7 +28,7 @@ seq([1, 2, 3, 4, 5], transform);
 // -> [ 6, 12 ]
 
 function* nums() {
-  const i = 1;
+  var i = 1;
   while(true) {
     yield i++;
   }
@@ -72,7 +69,7 @@ The above functions optionally take a collection to immediately perform the tran
 The signature of running an immediate map is the same familiar one as seen in lodash and underscore, but now you can drop the collection to make a transducer and run multiple transformations with good performance:
 
 ```js
-const transform = compose(
+var transform = compose(
   map(x => x + 1),
   filter(x => x % 2 === 0),
   take(2)
@@ -116,7 +113,7 @@ toArray({ foo: 1, bar: 2 });
 
 // Make an array from an iterable
 function* nums() {
-  const i = 1;
+  var i = 1;
   while(true) {
     yield i++;
   }
@@ -125,7 +122,7 @@ into([], take(3), nums());
 // -> [ 1, 2, 3 ]
 
 // Lazily transform an iterable
-const iter = seq(nums(), compose(map(x => x * 2),
+var iter = seq(nums(), compose(map(x => x * 2),
                                filter(x => x > 4));
 iter.next().value; // -> 6
 iter.next().value; // -> 8
@@ -181,7 +178,7 @@ The builtin transformations perform well because they minimize allocations, but 
 This not only works with all the JavaScript data structures you can think of, but it even works for things like streams. Soon channels from [js-csp](https://github.com/ubolonton/js-csp) will be able to take a transformation and you get all of this for channels for free:
 
 ```js
-const ch = chan(1, compose(
+var ch = chan(1, compose(
   cat,
   map(x => x + 1),
   dedupe(),
@@ -195,7 +192,7 @@ While it's great that you can apply transducers to custom data structures, it's 
 
 This conforms to the [official transducer spec](https://github.com/cognitect-labs/transducers-js/issues/20) so if you implement this, you can use it with all transducer libraries that conform to it.
 
-To implement the transducer protocol, you add methods to the prototype of your data structure. A transformer is an object with three methods: `init`, `result`, and `step`. `init` returns a new empty object, `result`, can perform any finalization steps on the resulting collection, and `step` performs a reduce.
+To implement the transducer protocol, you add methods to the prototype of your data structure. A transformer is an object with three methods: `init`, `result`, and `step`. `init` returns a new empty object, `result`, can perform any finalization steps on the resulting collection, and `step` performs a reduce. 
 
 These methods are namespaced and in the future could be symbols. Here's what it looks like for `Immutable.List`:
 

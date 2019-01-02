@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha ./tests/tests.js",
     "build": "webpack",
+    "playground": "node ./tester.js",
     "build:uglify": "NODE_ENV=production webpack",
     "prepublish": "npm -s run build && npm test"
   },

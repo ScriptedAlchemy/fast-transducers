@@ -1,1 +1,885 @@
-var transducers=function(t){var r={};function n(e){if(r[e])return r[e].exports;var i=r[e]={i:e,l:!1,exports:{}};return t[e].call(i.exports,i,i.exports,n),i.l=!0,i.exports}return n.m=t,n.c=r,n.d=function(t,r,e){n.o(t,r)||Object.defineProperty(t,r,{enumerable:!0,get:e})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,r){if(1&r&&(t=n(t)),8&r)return t;if(4&r&&"object"==typeof t&&t&&t.__esModule)return t;var e=Object.create(null);if(n.r(e),Object.defineProperty(e,"default",{enumerable:!0,value:t}),2&r&&"string"!=typeof t)for(var i in t)n.d(e,i,function(r){return t[r]}.bind(null,i));return e},n.n=function(t){var r=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(r,"a",r),r},n.o=function(t,r){return Object.prototype.hasOwnProperty.call(t,r)},n.p="",n(n.s=0)}([function(t,r){var n={iterator:"undefined"!=typeof Symbol?Symbol.iterator:"@@iterator"};function e(t,r){throw new Error("don't know how to "+t+" collection: "+r)}function i(t,r){return"iterator"===r?t[n.iterator]||t.next:t[n[r]]}function u(t){var r=t[n["iterator"]];return r?r.call(t):t.next?t[n.iterator]?t:new o(t):a(t)?new s(t):h(t)?new c(t):void 0}function o(t){this.wrapped=t}function s(t){this.arr=t,this.index=0}function c(t){this.obj=t,this.keys=Object.keys(t),this.index=0}o.prototype.next=function(){return this.wrapped.next.apply(this.wrapped,arguments)},o.prototype[n.iterator]=Q,s.prototype.next=function(){return this.index<this.arr.length?{value:this.arr[this.index++],done:!1}:{done:!0}},s.prototype[n.iterator]=Q,c.prototype.next=function(){if(this.index<this.keys.length){var t=this.keys[this.index++];return{value:[t,this.obj[t]],done:!1}}return{done:!0}},c.prototype[n.iterator]=Q;var f=Object.prototype.toString,a="function"==typeof Array.isArray?Array.isArray:function(t){return"[object Array]"==f.call(t)};function p(t){return"function"==typeof t}function h(t){return t instanceof Object&&Object.getPrototypeOf(t)===Object.getPrototypeOf({})}function d(t){return"number"==typeof t}function l(t){this["@@transducer/reduced"]=!0,this["@@transducer/value"]=t}function y(t){return t instanceof l||t&&t["@@transducer/reduced"]}function m(t){return t["@@transducer/value"]}function x(t){return y(t)?m(t):t}function v(t,r,n){if(a(t)){for(var o=n,s=-1,c=t.length;++s<c;)if(y(o=r["@@transducer/step"](o,t[s]))){o=m(o);break}return r["@@transducer/result"](o)}if(h(t)||i(t,"iterator")){o=n;for(var f=u(t),p=f.next();!p.done;){if(y(o=r["@@transducer/step"](o,p.value))){o=m(o);break}p=f.next()}return r["@@transducer/result"](o)}e("iterate",t)}function w(t,r,n,e){return r=r(n),void 0===e&&(e=r["@@transducer/init"]()),v(t,r,e)}function b(){var t=Array.prototype.slice.call(arguments);return function(r){for(var n=r,e=t.length-1;e>=0;e--)n=t[e](n);return n}}function g(t,r,n){if(!r)return t;switch(n=null!=n?n:1){case 1:return function(n){return t.call(r,n)};case 2:return function(n,e){return t.call(r,n,e)};default:return t.bind(r)}}function j(t,r){this.xform=r,this.f=t}function O(t,r,n){return p(t)&&(n=r,r=t,t=null),r=g(r,n),t?a(t)?function(t,r,n){var e=-1,i=t.length,u=Array(i);for(r=g(r,n,2);++e<i;)u[e]=r(t[e],e);return u}(t,r,n):G(t,O(r)):function(t){return new j(r,t)}}function k(t,r){this.xform=r,this.f=t}function A(t,r,n){return p(t)&&(n=r,r=t,t=null),r=g(r,n),t?a(t)?function(t,r,n){var e=t.length,i=[];r=g(r,n,2);for(var u=0;u<e;u++)r(t[u],u)&&i.push(t[u]);return i}(t,r,n):G(t,A(r)):function(t){return new k(r,t)}}function S(t){this.xform=t,this.last=void 0}function P(t,r){this.xform=r,this.f=t}function _(t,r){this.n=t,this.i=0,this.xform=r}function M(t,r){this.n=t,this.i=0,this.xform=r}function T(t,r){this.xform=r,this.f=t,this.dropping=!0}function q(t,r){this.n=t,this.i=0,this.xform=r,this.part=new Array(t)}j.prototype["@@transducer/init"]=function(){return this.xform["@@transducer/init"]()},j.prototype["@@transducer/result"]=function(t){return this.xform["@@transducer/result"](t)},j.prototype["@@transducer/step"]=function(t,r){return this.xform["@@transducer/step"](t,this.f(r))},k.prototype["@@transducer/init"]=function(){return this.xform["@@transducer/init"]()},k.prototype["@@transducer/result"]=function(t){return this.xform["@@transducer/result"](t)},k.prototype["@@transducer/step"]=function(t,r){return this.f(r)?this.xform["@@transducer/step"](t,r):t},S.prototype["@@transducer/init"]=function(){return this.xform["@@transducer/init"]()},S.prototype["@@transducer/result"]=function(t){return this.xform["@@transducer/result"](t)},S.prototype["@@transducer/step"]=function(t,r){return r!==this.last?(this.last=r,this.xform["@@transducer/step"](t,r)):t},P.prototype["@@transducer/init"]=function(){return this.xform["@@transducer/init"]()},P.prototype["@@transducer/result"]=function(t){return this.xform["@@transducer/result"](t)},P.prototype["@@transducer/step"]=function(t,r){return this.f(r)?this.xform["@@transducer/step"](t,r):new l(t)},_.prototype["@@transducer/init"]=function(){return this.xform["@@transducer/init"]()},_.prototype["@@transducer/result"]=function(t){return this.xform["@@transducer/result"](t)},_.prototype["@@transducer/step"]=function(t,r){var n;return this.i<this.n&&(t=this.xform["@@transducer/step"](t,r),this.i+1>=this.n&&(t=y(n=t)?n:new l(n))),this.i++,t},M.prototype["@@transducer/init"]=function(){return this.xform["@@transducer/init"]()},M.prototype["@@transducer/result"]=function(t){return this.xform["@@transducer/result"](t)},M.prototype["@@transducer/step"]=function(t,r){return this.i++<this.n?t:this.xform["@@transducer/step"](t,r)},T.prototype["@@transducer/init"]=function(){return this.xform["@@transducer/init"]()},T.prototype["@@transducer/result"]=function(t){return this.xform["@@transducer/result"](t)},T.prototype["@@transducer/step"]=function(t,r){if(this.dropping){if(this.f(r))return t;this.dropping=!1}return this.xform["@@transducer/step"](t,r)},q.prototype["@@transducer/init"]=function(){return this.xform["@@transducer/init"]()},q.prototype["@@transducer/result"]=function(t){return this.i>0?x(this.xform["@@transducer/step"](t,this.part.slice(0,this.i))):this.xform["@@transducer/result"](t)},q.prototype["@@transducer/step"]=function(t,r){if(this.part[this.i]=r,this.i+=1,this.i===this.n){var n=this.part.slice(0,this.n);return this.part=new Array(this.n),this.i=0,this.xform["@@transducer/step"](t,n)}return t};var E={};function R(t,r){this.f=t,this.xform=r,this.part=[],this.last=E}function W(t,r){this.sep=t,this.xform=r,this.started=!1}function z(t,r){this.xform=r,this.n=t}function B(t,r){this.xform=r,this.n=t,this.i=-1}function I(t){this.xform=t}function L(t){return new I(t)}function N(t,r){return t.push(r),t}function C(t,r){if(a(r)&&2===r.length)t[r[0]]=r[1];else for(var n=Object.keys(r),e=n.length,i=0;i<e;i++)t[n[i]]=r[n[i]];return t}R.prototype["@@transducer/init"]=function(){return this.xform["@@transducer/init"]()},R.prototype["@@transducer/result"]=function(t){var r=this.part.length;return r>0?x(this.xform["@@transducer/step"](t,this.part.slice(0,r))):this.xform["@@transducer/result"](t)},R.prototype["@@transducer/step"]=function(t,r){var n=this.f(r);return n===this.last||this.last===E?this.part.push(r):(t=this.xform["@@transducer/step"](t,this.part),this.part=[r]),this.last=n,t},W.prototype["@@transducer/init"]=function(){return this.xform["@@transducer/init"]()},W.prototype["@@transducer/result"]=function(t){return this.xform["@@transducer/result"](t)},W.prototype["@@transducer/step"]=function(t,r){if(this.started){var n=this.xform["@@transducer/step"](t,this.sep);return y(n)?n:this.xform["@@transducer/step"](n,r)}return this.started=!0,this.xform["@@transducer/step"](t,r)},z.prototype["@@transducer/init"]=function(){return this.xform["@@transducer/init"]()},z.prototype["@@transducer/result"]=function(t){return this.xform["@@transducer/result"](t)},z.prototype["@@transducer/step"]=function(t,r){for(var n=this.n,e=t,i=0;i<n&&!y(e=this.xform["@@transducer/step"](e,r));i++);return e},B.prototype["@@transducer/init"]=function(){return this.xform["@@transducer/init"]()},B.prototype["@@transducer/result"]=function(t){return this.xform["@@transducer/result"](t)},B.prototype["@@transducer/step"]=function(t,r){return this.i+=1,this.i%this.n==0?this.xform["@@transducer/step"](t,r):t},I.prototype["@@transducer/init"]=function(){return this.xform["@@transducer/init"]()},I.prototype["@@transducer/result"]=function(t){return this.xform["@@transducer/result"](t)},I.prototype["@@transducer/step"]=function(t,r){var n=this.xform,e={"@@transducer/init":function(){return n["@@transducer/init"]()},"@@transducer/result":function(t){return t},"@@transducer/step":function(t,r){var e=n["@@transducer/step"](t,r);return y(e)?m(e):e}};return v(r,e,t)};var D={"@@transducer/init":function(){return[]},"@@transducer/result":function(t){return t}};D["@@transducer/step"]=N;var F={};function G(t,r){return a(t)?w(t,r,D,[]):h(t)?w(t,r,F,{}):t["@@transducer/step"]?(n=t["@@transducer/init"]?t["@@transducer/init"]():new t.constructor,w(t,r,t,n)):i(t,"iterator")?new K(r,t):void e("sequence",t);var n}F["@@transducer/init"]=function(){return{}},F["@@transducer/result"]=function(t){return t},F["@@transducer/step"]=C;var H={};function J(t,r){this.xform=t(H),this.iter=r}function K(t,r){this.iter=u(r),this.items=[],this.stepper=new J(t,u(r))}function Q(){return this}H["@@transducer/result"]=function(t){return y(t)?m(t):t},H["@@transducer/step"]=function(t,r){return t.items.push(r),t.rest},J.prototype["@@transducer/step"]=function(t){for(var r=t.items.length;t.items.length===r;){var n=this.iter.next();if(n.done||y(n.value)){this.xform["@@transducer/result"](this);break}this.xform["@@transducer/step"](t,n.value)}},K.prototype[n.iterator]=Q,K.prototype.next=function(){return this["@@transducer/step"](),this.items.length?{value:this.items.pop(),done:!1}:{done:!0}},K.prototype["@@transducer/step"]=function(){this.items.length||this.stepper["@@transducer/step"](this)},t.exports={reduce:v,transformer:function(t){var r={"@@transducer/init":function(){throw new Error("init value unavailable")},"@@transducer/result":function(t){return t}};return r["@@transducer/step"]=t,r},Reduced:l,isReduced:y,iterator:u,push:N,merge:C,transduce:w,seq:G,toArray:function(t,r){return r?w(t,r,D,[]):v(t,D,[])},toObj:function(t,r){return r?w(t,r,F,{}):v(t,F,{})},toIter:function(t,r){return r?new K(r,t):u(t)},into:function(t,r,n){return a(t)?w(n,r,D,t):h(t)?w(n,r,F,t):t["@@transducer/step"]?w(n,r,t,t):void e("into",t)},compose:b,map:O,filter:A,remove:function(t,r,n){return p(t)&&(n=r,r=t,t=null),r=g(r,n),A(t,function(t){return!r(t)})},cat:L,mapcat:function(t,r){return b(O(t=g(t,r)),L)},keep:function(t){return A(t,function(t){return null!=t})},dedupe:function t(r){return r?G(r,t()):function(t){return new S(t)}},take:function t(r,n){return d(r)&&(n=r,r=null),r?G(r,t(n)):function(t){return new _(n,t)}},takeWhile:function t(r,n,e){return p(r)&&(e=n,n=r,r=null),n=g(n,e),r?G(r,t(n)):function(t){return new P(n,t)}},takeNth:function t(r,n){return 1===arguments.length?(n=r,function(t){return new B(n,t)}):G(r,t(n))},drop:function t(r,n){return d(r)&&(n=r,r=null),r?G(r,t(n)):function(t){return new M(n,t)}},dropWhile:function t(r,n,e){return p(r)&&(e=n,n=r,r=null),n=g(n,e),r?G(r,t(n)):function(t){return new T(n,t)}},partition:function t(r,n){return d(r)&&(n=r,r=null),r?G(r,t(n)):function(t){return new q(n,t)}},partitionBy:function t(r,n,e){return p(r)&&(e=n,n=r,r=null),n=g(n,e),r?G(r,t(n)):function(t){return new R(n,t)}},interpose:function t(r,n){return 1===arguments.length?(n=r,function(t){return new W(n,t)}):G(r,t(n))},repeat:function t(r,n){return 1===arguments.length?(n=r,function(t){return new z(n,t)}):G(r,t(n))},range:function(t){for(var r=new Array(t),n=0;n<r.length;n++)r[n]=n;return r},protocols:n,LazyTransformer:K}}]);
+const transducers =
+/** ****/ (function (modules) { // webpackBootstrap
+    /** ****/ 	// The module cache
+    /** ****/ 	const installedModules = {};
+    /** ****/
+    /** ****/ 	// The require function
+    /** ****/ 	function __webpack_require__(moduleId) {
+      /** ****/
+      /** ****/ 		// Check if module is in cache
+      /** ****/ 		if (installedModules[moduleId])
+      /** ****/ 			{ return installedModules[moduleId].exports; }
+      /** ****/
+      /** ****/ 		// Create a new module (and put it into the cache)
+      /** ****/ 		const module = installedModules[moduleId] = {
+        /** ****/ 			exports: {},
+        /** ****/ 			id: moduleId,
+        /** ****/ 			loaded: false,
+        /** ****/ 		};
+      /** ****/
+      /** ****/ 		// Execute the module function
+      /** ****/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+      /** ****/
+      /** ****/ 		// Flag the module as loaded
+      /** ****/ 		module.loaded = true;
+      /** ****/
+      /** ****/ 		// Return the exports of the module
+      /** ****/ 		return module.exports;
+      /** ****/ 	}
+    /** ****/
+    /** ****/
+    /** ****/ 	// expose the modules object (__webpack_modules__)
+    /** ****/ 	__webpack_require__.m = modules;
+    /** ****/
+    /** ****/ 	// expose the module cache
+    /** ****/ 	__webpack_require__.c = installedModules;
+    /** ****/
+    /** ****/ 	// __webpack_public_path__
+    /** ****/ 	__webpack_require__.p = '';
+    /** ****/
+    /** ****/ 	// Load entry module and return exports
+    /** ****/ 	return __webpack_require__(0);
+    /** ****/ }
+  /** **********************************************************************/
+  /** ****/ ([
+    /* 0 */
+    /** */ function (module, exports, __webpack_require__) {
+      // basic protocol helpers
+
+      const symbolExists = typeof Symbol !== 'undefined';
+
+      const protocols = {
+	  iterator: symbolExists ? Symbol.iterator : '@@iterator',
+	  transformer: symbolExists ? Symbol('transformer') : '@@transformer',
+      };
+
+      function throwProtocolError(name, coll) {
+	  throw new Error(`don't know how to ${name} collection: ${
+	                  coll}`);
+      }
+
+      function fulfillsProtocol(obj, name) {
+	  if (name === 'iterator') {
+	    // Accept ill-formed iterators that don't conform to the
+	    // protocol by accepting just next()
+	    return obj[protocols.iterator] || obj.next;
+	  }
+
+	  return obj[protocols[name]];
+      }
+
+      function getProtocolProperty(obj, name) {
+	  return obj[protocols[name]];
+      }
+
+      function iterator(coll) {
+	  const iter = getProtocolProperty(coll, 'iterator');
+	  if (iter) {
+	    return iter.call(coll);
+	  } else if (coll.next) {
+	    // Basic duck typing to accept an ill-formed iterator that doesn't
+	    // conform to the iterator protocol (all iterators should have the
+	    // @@iterator method and return themselves, but some engines don't
+	    // have that on generators like older v8)
+	    return coll;
+	  } else if (isArray(coll)) {
+	    return new ArrayIterator(coll);
+	  } else if (isObject(coll)) {
+	    return new ObjectIterator(coll);
+	  }
+      }
+
+      function ArrayIterator(arr) {
+	  this.arr = arr;
+	  this.index = 0;
+      }
+
+      ArrayIterator.prototype.next = function () {
+	  if (this.index < this.arr.length) {
+	    return {
+	      value: this.arr[this.index++],
+	      done: false,
+	    };
+	  }
+	  return {
+	    done: true,
+	  };
+      };
+
+      function ObjectIterator(obj) {
+	  this.obj = obj;
+	  this.keys = Object.keys(obj);
+	  this.index = 0;
+      }
+
+      ObjectIterator.prototype.next = function () {
+	  if (this.index < this.keys.length) {
+	    const k = this.keys[this.index++];
+	    return {
+	      value: [k, this.obj[k]],
+	      done: false,
+	    };
+	  }
+	  return {
+	    done: true,
+	  };
+      };
+
+      // helpers
+
+      const toString = Object.prototype.toString;
+      var isArray = typeof Array.isArray === 'function' ? Array.isArray : function (obj) {
+	  return toString.call(obj) == '[object Array]';
+      };
+
+      function isFunction(x) {
+	  return typeof x === 'function';
+      }
+
+      function isObject(x) {
+	  return x instanceof Object &&
+	    Object.getPrototypeOf(x) === Object.getPrototypeOf({});
+      }
+
+      function isNumber(x) {
+	  return typeof x === 'number';
+      }
+
+      function Reduced(value) {
+	  this.__transducers_reduced__ = true;
+	  this.value = value;
+      }
+
+      function isReduced(x) {
+	  return (x instanceof Reduced) || (x && x.__transducers_reduced__);
+      }
+
+      function deref(x) {
+	  return x.value;
+      }
+
+      /**
+	 * This is for transforms that may call their nested transforms before
+	 * Reduced-wrapping the result (e.g. "take"), to avoid nested Reduced.
+	 */
+      function ensureReduced(val) {
+	  if (isReduced(val)) {
+	    return val;
+	  }
+	    return new Reduced(val);
+      }
+
+      /**
+	 * This is for tranforms that call their nested transforms when
+	 * performing completion (like "partition"), to avoid signaling
+	 * termination after already completing.
+	 */
+      function ensureUnreduced(v) {
+	  if (isReduced(v)) {
+	    return deref(v);
+	  }
+	    return v;
+      }
+
+      function reduce(coll, xform, init) {
+	  if (isArray(coll)) {
+	    var result = init;
+	    let index = -1;
+	    const len = coll.length;
+	    while (++index < len) {
+	      result = xform.step(result, coll[index]);
+	      if (isReduced(result)) {
+	        result = deref(result);
+	        break;
+	      }
+	    }
+	    return xform.result(result);
+	  } else if (isObject(coll) || fulfillsProtocol(coll, 'iterator')) {
+	    var result = init;
+	    const iter = iterator(coll);
+	    let val = iter.next();
+	    while (!val.done) {
+	      result = xform.step(result, val.value);
+	      if (isReduced(result)) {
+	        result = deref(result);
+	        break;
+	      }
+	      val = iter.next();
+	    }
+	    return xform.result(result);
+	  }
+	  throwProtocolError('iterate', coll);
+      }
+
+      function transduce(coll, xform, reducer, init) {
+	  xform = xform(reducer);
+	  if (init === undefined) {
+	    init = xform.init();
+	  }
+	  return reduce(coll, xform, init);
+      }
+
+      function compose() {
+	  const funcs = Array.prototype.slice.call(arguments);
+	  return function (r) {
+	    let value = r;
+	    for (let i = funcs.length - 1; i >= 0; i--) {
+	      value = funcs[i](value);
+	    }
+	    return value;
+	  };
+      }
+
+      // transformations
+
+      function transformer(f) {
+	  return {
+	    init() {
+	      throw new Error('init value unavailable');
+	    },
+	    result(v) {
+	      return v;
+	    },
+	    step: f,
+	  };
+      }
+
+      function bound(f, ctx, count) {
+	  count = count != null ? count : 1;
+
+	  if (!ctx) {
+	    return f;
+	  }
+	    switch (count) {
+	    case 1:
+	      return function (x) {
+	        return f.call(ctx, x);
+	      };
+	    case 2:
+	      return function (x, y) {
+	        return f.call(ctx, x, y);
+	      };
+	    default:
+	      return f.bind(ctx);
+	    }
+      }
+
+      function arrayMap(arr, f, ctx) {
+	  let index = -1;
+	  const length = arr.length;
+	  const result = Array(length);
+	  f = bound(f, ctx, 2);
+
+	  while (++index < length) {
+	    result[index] = f(arr[index], index);
+	  }
+	  return result;
+      }
+
+      function arrayFilter(arr, f, ctx) {
+	  const len = arr.length;
+	  const result = [];
+	  f = bound(f, ctx, 2);
+
+	  for (let i = 0; i < len; i++) {
+	    if (f(arr[i], i)) {
+	      result.push(arr[i]);
+	    }
+	  }
+	  return result;
+      }
+
+      function Map(f, xform) {
+	  this.xform = xform;
+	  this.f = f;
+      }
+
+      Map.prototype.init = function () {
+	  return this.xform.init();
+      };
+
+      Map.prototype.result = function (v) {
+	  return this.xform.result(v);
+      };
+
+      Map.prototype.step = function (res, input) {
+	  return this.xform.step(res, this.f(input));
+      };
+
+      function map(coll, f, ctx) {
+	  if (isFunction(coll)) { ctx = f; f = coll; coll = null; }
+	  f = bound(f, ctx);
+
+	  if (coll) {
+	    if (isArray(coll)) {
+	      return arrayMap(coll, f, ctx);
+	    }
+	    return seq(coll, map(f));
+	  }
+
+	  return function (xform) {
+	    return new Map(f, xform);
+	  };
+      }
+
+      function Filter(f, xform) {
+	  this.xform = xform;
+	  this.f = f;
+      }
+
+      Filter.prototype.init = function () {
+	  return this.xform.init();
+      };
+
+      Filter.prototype.result = function (v) {
+	  return this.xform.result(v);
+      };
+
+      Filter.prototype.step = function (res, input) {
+	  if (this.f(input)) {
+	    return this.xform.step(res, input);
+	  }
+	  return res;
+      };
+
+      function filter(coll, f, ctx) {
+	  if (isFunction(coll)) { ctx = f; f = coll; coll = null; }
+	  f = bound(f, ctx);
+
+	  if (coll) {
+	    if (isArray(coll)) {
+	      return arrayFilter(coll, f, ctx);
+	    }
+	    return seq(coll, filter(f));
+	  }
+
+	  return function (xform) {
+	    return new Filter(f, xform);
+	  };
+      }
+
+      function remove(coll, f, ctx) {
+	  if (isFunction(coll)) { ctx = f; f = coll; coll = null; }
+	  f = bound(f, ctx);
+	  return filter(coll, x => !f(x));
+      }
+
+      function keep(coll) {
+	  return filter(coll, x => x != null);
+      }
+
+      function Dedupe(xform) {
+	  this.xform = xform;
+	  this.last = undefined;
+      }
+
+      Dedupe.prototype.init = function () {
+	  return this.xform.init();
+      };
+
+      Dedupe.prototype.result = function (v) {
+	  return this.xform.result(v);
+      };
+
+      Dedupe.prototype.step = function (result, input) {
+	  if (input !== this.last) {
+	    this.last = input;
+	    return this.xform.step(result, input);
+	  }
+	  return result;
+      };
+
+      function dedupe(coll) {
+	  if (coll) {
+	    return seq(coll, dedupe());
+	  }
+
+	  return function (xform) {
+	    return new Dedupe(xform);
+	  };
+      }
+
+      function TakeWhile(f, xform) {
+	  this.xform = xform;
+	  this.f = f;
+      }
+
+      TakeWhile.prototype.init = function () {
+	  return this.xform.init();
+      };
+
+      TakeWhile.prototype.result = function (v) {
+	  return this.xform.result(v);
+      };
+
+      TakeWhile.prototype.step = function (result, input) {
+	  if (this.f(input)) {
+	    return this.xform.step(result, input);
+	  }
+	  return new Reduced(result);
+      };
+
+      function takeWhile(coll, f, ctx) {
+	  if (isFunction(coll)) { ctx = f; f = coll; coll = null; }
+	  f = bound(f, ctx);
+
+	  if (coll) {
+	    return seq(coll, takeWhile(f));
+	  }
+
+	  return function (xform) {
+	    return new TakeWhile(f, xform);
+	  };
+      }
+
+      function Take(n, xform) {
+	  this.n = n;
+	  this.i = 0;
+	  this.xform = xform;
+      }
+
+      Take.prototype.init = function () {
+	  return this.xform.init();
+      };
+
+      Take.prototype.result = function (v) {
+	  return this.xform.result(v);
+      };
+
+      Take.prototype.step = function (result, input) {
+	  if (this.i < this.n) {
+	    result = this.xform.step(result, input);
+	    if (this.i + 1 >= this.n) {
+	      // Finish reducing on the same step as the final value. TODO:
+	      // double-check that this doesn't break any semantics
+	      result = ensureReduced(result);
+	    }
+	  }
+	  this.i++;
+	  return result;
+      };
+
+      function take(coll, n) {
+	  if (isNumber(coll)) { n = coll; coll = null; }
+
+	  if (coll) {
+	    return seq(coll, take(n));
+	  }
+
+	  return function (xform) {
+	    return new Take(n, xform);
+	  };
+      }
+
+      function Drop(n, xform) {
+	  this.n = n;
+	  this.i = 0;
+	  this.xform = xform;
+      }
+
+      Drop.prototype.init = function () {
+	  return this.xform.init();
+      };
+
+      Drop.prototype.result = function (v) {
+	  return this.xform.result(v);
+      };
+
+      Drop.prototype.step = function (result, input) {
+	  if (this.i++ < this.n) {
+	    return result;
+	  }
+	  return this.xform.step(result, input);
+      };
+
+      function drop(coll, n) {
+	  if (isNumber(coll)) { n = coll; coll = null; }
+
+	  if (coll) {
+	    return seq(coll, drop(n));
+	  }
+
+	  return function (xform) {
+	    return new Drop(n, xform);
+	  };
+      }
+
+      function DropWhile(f, xform) {
+	  this.xform = xform;
+	  this.f = f;
+	  this.dropping = true;
+      }
+
+      DropWhile.prototype.init = function () {
+	  return this.xform.init();
+      };
+
+      DropWhile.prototype.result = function (v) {
+	  return this.xform.result(v);
+      };
+
+      DropWhile.prototype.step = function (result, input) {
+	  if (this.dropping) {
+	    if (this.f(input)) {
+	      return result;
+	    }
+
+	      this.dropping = false;
+	  }
+	  return this.xform.step(result, input);
+      };
+
+      function dropWhile(coll, f, ctx) {
+	  if (isFunction(coll)) { ctx = f; f = coll; coll = null; }
+	  f = bound(f, ctx);
+
+	  if (coll) {
+	    return seq(coll, dropWhile(f));
+	  }
+
+	  return function (xform) {
+	    return new DropWhile(f, xform);
+	  };
+      }
+
+      function Partition(n, xform) {
+	  this.n = n;
+	  this.i = 0;
+	  this.xform = xform;
+	  this.part = new Array(n);
+      }
+
+      Partition.prototype.init = function () {
+	  return this.xform.init();
+      };
+
+      Partition.prototype.result = function (v) {
+	  if (this.i > 0) {
+	    return ensureUnreduced(this.xform.step(v, this.part.slice(0, this.i)));
+	  }
+	  return this.xform.result(v);
+      };
+
+      Partition.prototype.step = function (result, input) {
+	  this.part[this.i] = input;
+	  this.i += 1;
+	  if (this.i === this.n) {
+	    const out = this.part.slice(0, this.n);
+	    this.part = new Array(this.n);
+	    this.i = 0;
+	    return this.xform.step(result, out);
+	  }
+	  return result;
+      };
+
+      function partition(coll, n) {
+	  if (isNumber(coll)) {
+	    n = coll; coll = null;
+	  }
+
+	  if (coll) {
+	    return seq(coll, partition(n));
+	  }
+
+	  return function (xform) {
+	    return new Partition(n, xform);
+	  };
+      }
+
+      const NOTHING = {};
+
+      function PartitionBy(f, xform) {
+	  // TODO: take an "opts" object that allows the user to specify
+	  // equality
+	  this.f = f;
+	  this.xform = xform;
+	  this.part = [];
+	  this.last = NOTHING;
+      }
+
+      PartitionBy.prototype.init = function () {
+	  return this.xform.init();
+      };
+
+      PartitionBy.prototype.result = function (v) {
+	  const l = this.part.length;
+	  if (l > 0) {
+	    return ensureUnreduced(this.xform.step(v, this.part.slice(0, l)));
+	  }
+	  return this.xform.result(v);
+      };
+
+      PartitionBy.prototype.step = function (result, input) {
+	  const current = this.f(input);
+	  if (current === this.last || this.last === NOTHING) {
+	    this.part.push(input);
+	  } else {
+	    result = this.xform.step(result, this.part);
+	    this.part = [input];
+	  }
+	  this.last = current;
+	  return result;
+      };
+
+      function partitionBy(coll, f, ctx) {
+	  if (isFunction(coll)) { ctx = f; f = coll; coll = null; }
+	  f = bound(f, ctx);
+
+	  if (coll) {
+	    return seq(coll, partitionBy(f));
+	  }
+
+	  return function (xform) {
+	    return new PartitionBy(f, xform);
+	  };
+      }
+
+      // pure transducers (cannot take collections)
+
+      function Cat(xform) {
+	  this.xform = xform;
+      }
+
+      Cat.prototype.init = function () {
+	  return this.xform.init();
+      };
+
+      Cat.prototype.result = function (v) {
+	  return this.xform.result(v);
+      };
+
+      Cat.prototype.step = function (result, input) {
+	  const xform = this.xform;
+	  const newxform = {
+	    init() {
+	      return xform.init();
+	    },
+	    result(v) {
+	      return v;
+	    },
+	    step(result, input) {
+	      const val = xform.step(result, input);
+	      return isReduced(val) ? deref(val) : val;
+	    },
+	  };
+
+	  return reduce(input, newxform, result);
+      };
+
+      function cat(xform) {
+	  return new Cat(xform);
+      }
+
+      function mapcat(f, ctx) {
+	  f = bound(f, ctx);
+	  return compose(map(f), cat);
+      }
+
+      // collection helpers
+
+      function push(arr, x) {
+	  arr.push(x);
+	  return arr;
+      }
+
+      function merge(obj, x) {
+	  if (isArray(x) && x.length === 2) {
+	    obj[x[0]] = x[1];
+	  } else {
+	    const keys = Object.keys(x);
+	    const len = keys.length;
+	    for (let i = 0; i < len; i++) {
+	      obj[keys[i]] = x[keys[i]];
+	    }
+	  }
+	  return obj;
+      }
+
+      const arrayReducer = {
+	  init() {
+	    return [];
+	  },
+	  result(v) {
+	    return v;
+	  },
+	  step: push,
+      };
+
+      const objReducer = {
+	  init() {
+	    return {};
+	  },
+	  result(v) {
+	    return v;
+	  },
+	  step: merge,
+      };
+
+      function getReducer(coll) {
+	  if (isArray(coll)) {
+	    return arrayReducer;
+	  } else if (isObject(coll)) {
+	    return objReducer;
+	  } else if (fulfillsProtocol(coll, 'transformer')) {
+	    return getProtocolProperty(coll, 'transformer');
+	  }
+	  throwProtocolError('getReducer', coll);
+      }
+
+      // building new collections
+
+      function toArray(coll, xform) {
+	  if (!xform) {
+	    return reduce(coll, arrayReducer, []);
+	  }
+	  return transduce(coll, xform, arrayReducer, []);
+      }
+
+      function toObj(coll, xform) {
+	  if (!xform) {
+	    return reduce(coll, objReducer, {});
+	  }
+	  return transduce(coll, xform, objReducer, {});
+      }
+
+      function toIter(coll, xform) {
+	  if (!xform) {
+	    return iterator(coll);
+	  }
+	  return new LazyTransformer(xform, coll);
+      }
+
+      function seq(coll, xform) {
+	  if (isArray(coll)) {
+	    return transduce(coll, xform, arrayReducer, []);
+	  } else if (isObject(coll)) {
+	    return transduce(coll, xform, objReducer, {});
+	  } else if (fulfillsProtocol(coll, 'transformer')) {
+	    const transformer = getProtocolProperty(coll, 'transformer');
+	    return transduce(coll, xform, transformer, transformer.init());
+	  } else if (fulfillsProtocol(coll, 'iterator')) {
+	    return new LazyTransformer(xform, coll);
+	  }
+	  throwProtocolError('sequence', coll);
+      }
+
+      function into(to, xform, from) {
+	  if (isArray(to)) {
+	    return transduce(from, xform, arrayReducer, to);
+	  } else if (isObject(to)) {
+	    return transduce(from, xform, objReducer, to);
+	  } else if (fulfillsProtocol(to, 'transformer')) {
+	    return transduce(from,
+	                     xform,
+	                     getProtocolProperty(to, 'transformer'),
+	                     to);
+	  }
+	  throwProtocolError('into', to);
+      }
+
+      // laziness
+
+      const stepper = {
+	  result(v) {
+	    return isReduced(v) ? deref(v) : v;
+	  },
+	  step(lt, x) {
+	    lt.items.push(x);
+	    return lt.rest;
+	  },
+      };
+
+      function Stepper(xform, iter) {
+	  this.xform = xform(stepper);
+	  this.iter = iter;
+      }
+
+      Stepper.prototype.step = function (lt) {
+	  const len = lt.items.length;
+	  while (lt.items.length === len) {
+	    const n = this.iter.next();
+	    if (n.done || isReduced(n.value)) {
+	      // finalize
+	      this.xform.result(this);
+	      break;
+	    }
+
+	    // step
+	    this.xform.step(lt, n.value);
+	  }
+      };
+
+      function LazyTransformer(xform, coll) {
+	  this.iter = iterator(coll);
+	  this.items = [];
+	  this.stepper = new Stepper(xform, iterator(coll));
+      }
+
+      LazyTransformer.prototype[protocols.iterator] = function () {
+	  return this;
+      };
+
+      LazyTransformer.prototype.next = function () {
+	  this.step();
+
+	  if (this.items.length) {
+	    return {
+	      value: this.items.pop(),
+	      done: false,
+	    };
+	  }
+
+	    return { done: true };
+      };
+
+      LazyTransformer.prototype.step = function () {
+	  if (!this.items.length) {
+	    this.stepper.step(this);
+	  }
+      };
+
+      // util
+
+      function range(n) {
+	  const arr = new Array(n);
+	  for (let i = 0; i < arr.length; i++) {
+	    arr[i] = i;
+	  }
+	  return arr;
+      }
+
+
+      module.exports = {
+	  reduce,
+	  transformer,
+	  Reduced,
+	  iterator,
+	  push,
+	  merge,
+	  transduce,
+	  seq,
+	  toArray,
+	  toObj,
+	  toIter,
+	  into,
+	  compose,
+	  map,
+	  filter,
+	  remove,
+	  cat,
+	  mapcat,
+	  keep,
+	  dedupe,
+	  take,
+	  takeWhile,
+	  drop,
+	  dropWhile,
+	  partition,
+	  partitionBy,
+	  range,
+
+	  protocols,
+	  LazyTransformer,
+      };
+      /** */ },
+    /** ****/ ]));

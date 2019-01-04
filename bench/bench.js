@@ -1,31 +1,21 @@
-var Benchmark = require('benchmark');
-var t = require('../transducers');
-var _ = require('lodash');
-var u = require('underscore');
-var suite = Benchmark.Suite('transducers');
+const Benchmark = require('benchmark');
+const _ = require('lodash');
+const u = require('underscore');
+const t = require('../transducers');
 
-function addTen(x) {
-  return x + 10;
-}
+const suite = Benchmark.Suite('transducers');
 
-function double(x) {
-  return x * 2;
-}
-
-function even(x) {
-  return x % 2 === 0;
-}
-
-function multipleOfFive(x) {
-  return x % 5 === 0;
-}
+function addTen(x) { return x + 10; }
+function double(x) { return x * 2; }
+function even(x) { return x % 2 === 0; }
+function multipleOfFive(x) { return x % 5 === 0; }
 
 function baseline(arr) {
-  var result = [];
-  var length = arr.length;
-  var entry;
+  const result = [];
+  const length = arr.length;
+  let entry;
 
-  for (var i = 0; i < length; i++) {
+  for (let i = 0; i < length; i++) {
     entry = double(addTen(arr[i]));
     if (multipleOfFive(entry) && even(entry)) {
       result.push(entry);
@@ -36,19 +26,19 @@ function baseline(arr) {
 }
 
 function benchArray(n) {
-  var arr = _.range(n);
+  const arr = _.range(n);
 
   suite
-    .add(' native (' + n + ')', function () {
+    .add(` native (${n})`, () => {
       arr.map(addTen)
         .map(double)
         .filter(multipleOfFive)
         .filter(even);
     })
-    .add(' baseline (' + n + ')', function () {
+    .add(` baseline (${n})`, () => {
       baseline(arr);
     })
-    .add('_.map/filter (' + n + ')', function () {
+    .add(`_.map/filter (${n})`, () => {
       // not even going to use chaining, it's slower
       _.filter(
         _.filter(
@@ -56,10 +46,10 @@ function benchArray(n) {
             _.map(arr, addTen),
             double),
           multipleOfFive),
-        even
+        even,
       );
     })
-    .add('_.map/filter, lazy (' + n + ')', function () {
+    .add(`_.map/filter, lazy (${n})`, () => {
       _(arr)
         .map(addTen)
         .map(double)
@@ -67,7 +57,7 @@ function benchArray(n) {
         .filter(even)
         .value();
     })
-    .add('u.map/filter (' + n + ')', function () {
+    .add(`u.map/filter (${n})`, () => {
       // not even going to use chaining, it's slower
       u.filter(
         u.filter(
@@ -75,57 +65,48 @@ function benchArray(n) {
             u.map(arr, addTen),
             double),
           multipleOfFive),
-        even
+        even,
       );
     })
-    .add('t.map/filter+transduce (' + n + ')', function () {
+    .add(`t.map/filter+transduce (${n})`, () => {
       t.into([],
         t.compose(
           t.map(addTen),
           t.map(double),
           t.filter(multipleOfFive),
-          t.filter(even)
+          t.filter(even),
         ),
         arr);
-    })
+    });
 }
 
-for (var i = 500; i <= 50000; i += 500) {
+for (let i = 500; i <= 530000; i += 20000) {
   benchArray(i);
 }
 
-var currentData = {};
-
+let currentData = {};
 function print() {
-  process.stdout.write(currentData.size + ' ');
-  currentData.cols.forEach(function (col, i) {
-    // process.stdout.write('# of items Iterated' + col + ' ' + '\n');
+  process.stdout.write(`${currentData.size} `);
+  currentData.cols.forEach((col, i) => {
+    process.stdout.write(`${col} `);
   });
   console.log('');
 }
 
-suite.on('cycle', function (event) {
-  var size = parseInt(event.target.name.match(/\((.*)\)/)[1]);
+suite.on('cycle', (event) => {
+  const size = parseInt(event.target.name.match(/\((.*)\)/)[1]);
   if (currentData.size !== size) {
     if (currentData.size) {
-      console.log('^^Processed Array size of', currentData.size + '\n');
+      print();
     }
-    currentData = {size: size, cols: []};
+    currentData = { size, cols: [] };
   }
 
-  console.log(event.target.name + ' = opsPerSec: ' + event.target.hz);
-  currentData.cols.push(event.target.name + ' = opsPerSec: ' + event.target.hz)
+  currentData.cols.push(event.target.hz);
 });
 
-suite.on('complete', function (event) {
-  var self = this;
-
-  Object.keys(self).map(function (value) {
-    var result = self[value]
-    if (!result.name) return
-    console.log(result.name, result.hz + 'ops/s', result.cycles + ' cycles')
-    console.log('###################')
-  })
+suite.on('complete', (event) => {
+  print();
 });
 
-suite.run({ 'async': true });
+suite.run();

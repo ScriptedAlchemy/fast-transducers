@@ -1,9 +1,9 @@
-var gulp = require('gulp');
-var sourcemaps = require('gulp-sourcemaps');
-var sweetjs = require('gulp-sweetjs');
-var header = require('gulp-header');
+const gulp = require('gulp');
+const sourcemaps = require('gulp-sourcemaps');
+const sweetjs = require('gulp-sweetjs');
+const header = require('gulp-header');
 
-gulp.task('compile', function() {
+gulp.task('compile', () => {
   gulp.src(['tests/**/*.js', 'foo.js'])
     .pipe(sourcemaps.init())
     .pipe(header('require("source-map-support");'))
@@ -11,7 +11,7 @@ gulp.task('compile', function() {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', () => {
   gulp.watch(['tests/**/*.js', 'foo.js'], ['compile']);
 });
 

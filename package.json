@@ -1,42 +1,46 @@
 {
-  "name": "fast-transducers",
-  "version": "0.3.2",
+  "name": "transducers.js",
+  "version": "2.0.0",
   "author": "Zack Jackson <zack@ScriptedAlchemy.com>",
   "main": "./transducers.js",
   "scripts": {
-    "test": "mocha ./tests/tests.js",
-    "build": "webpack --config webpack.config.js",
-    "build:uglify": "NODE_ENV=production webpack --config webpack.config.js",
-    "prepublish": "npm -s run build && npm test",
-    "benchmark": "node ./bench/bench.js",
-    "gulp:compile": "gulp"
+    "build": "gulp",
+    "benchmark": "node ./bench/zbench.js",
+    "eslint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jlongster/transducers.js.git"
+    "url": "git://github.com:ScriptedAlchemy/fast-transducers.git"
   },
   "keywords": [
-    "browser",
-    "client",
+    "transducers",
+    "typescript",
     "functional",
-    "util"
+    "iterators",
+    "lazy",
+    "chain"
   ],
   "devDependencies": {
-    "benchmark": "^2.1.4",
+    "benchmark": "^1.0.0",
     "es6-macros": "0.0.7",
+    "eslint": "^4.17.0",
+    "eslint-config-webpack": "^1.2.5",
+    "eslint-plugin-import": "^2.14.0",
     "expect.js": "^0.3.1",
-    "gulp": "^3.9.1",
-    "gulp-header": "^1.8.8",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-sweetjs": "^0.6.1",
-    "immutable": "^3.8.1",
-    "lodash": "^4.17.11",
-    "mocha": "^3.0.2",
-    "source-map-support": "^0.5.9",
-    "sweet.js": "^3.0.15",
-    "underscore": "^1.9.1",
-    "webpack": "^4.28.3",
-    "webpack-cli": "^3.2.0",
-    "uglifyjs-webpack-plugin": "^2.1.1"
+    "gulp": "^3.8.8",
+    "gulp-header": "^1.1.1",
+    "gulp-sourcemaps": "^1.1.5",
+    "gulp-sweetjs": "^0.5.4",
+    "immutable": "^3.7.1",
+    "lazy.js": "^0.5.1",
+    "mocha": "^1.21.4",
+    "ramda": "^0.26.1",
+    "source-map-support": "^0.2.7",
+    "sweet.js": "^0.7.1",
+    "transducers-js": "^0.4.174",
+    "transducist": "^1.0.2",
+    "uglifyjs-webpack-plugin": "^2.1.1",
+    "underscore": "^1.7.0",
+    "webpack": "^1.15.0"
   }
 }

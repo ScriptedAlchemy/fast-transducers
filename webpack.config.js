@@ -1,13 +1,13 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-var config = {
+const config = {
   mode: 'production',
   entry: './transducers.js',
   output: {
-    filename: 'transducers.js',
-    library: 'transducers'
+    filename: './dist/transducers.js',
+    library: 'transducers',
   },
-  plugins: []
+  plugins: [],
 };
 
 if (process.env.NODE_ENV === 'production') {
@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === 'production') {
         }),
       ],
     },
-  })
+  });
 }
 
 module.exports = config;

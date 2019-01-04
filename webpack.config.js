@@ -1,19 +1,33 @@
-var webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 var config = {
-  cache: true,
+  mode: 'production',
   entry: './transducers.js',
   output: {
-    filename: './dist/transducers.js',
+    filename: 'transducers.js',
     library: 'transducers'
   },
   plugins: []
 };
 
-if(process.env.NODE_ENV === 'production') {
-  config.plugins = config.plugins.concat([
-    new webpack.optimize.UglifyJsPlugin()
-  ]);
+if (process.env.NODE_ENV === 'production') {
+  Object.assign(config, {
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          uglifyOptions: {
+            output: {
+              comments: false,
+              ascii_only: true,
+            },
+            compress: {
+              comparisons: false,
+            },
+          },
+        }),
+      ],
+    },
+  })
 }
 
 module.exports = config;

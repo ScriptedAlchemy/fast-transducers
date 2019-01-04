@@ -6,7 +6,8 @@
   "scripts": {
     "build": "gulp",
     "benchmark": "node ./bench/zbench.js",
-    "eslint:fix": "eslint . --fix"
+    "eslint:fix": "eslint . --fix",
+    "semantic-release": "npx semantic-release"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "lazy.js": "^0.5.1",
     "mocha": "^1.21.4",
     "ramda": "^0.26.1",
+    "semantic-release": "^15.13.2",
     "source-map-support": "^0.2.7",
     "sweet.js": "^0.7.1",
     "transducers-js": "^0.4.174",
